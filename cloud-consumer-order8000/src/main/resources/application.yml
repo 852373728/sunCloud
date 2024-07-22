@@ -1,0 +1,14 @@
+server:
+  port: 8000
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  application:
+    name: cloud-consumer-order
+  cloud:
+    consul:
+      discovery:
+        service-name: ${spring.application.name}
+        prefer-ip-address: true
