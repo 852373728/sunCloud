@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Tag(name = "支付微服务模块", description = "订单CRUD")
 @Slf4j
