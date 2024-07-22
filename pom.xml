@@ -10,6 +10,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>mybatis_generator</module>
+        <module>cloud-provider-payment8001</module>
+        <module>cloud-api-commons</module>
     </modules>
 
 
@@ -19,7 +21,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <hutool.version>5.8.22</hutool.version>
         <lombok.version>1.18.30</lombok.version>
-        <druid.version>1.1.20</druid.version>
         <mybatis.springboot.version>3.0.2</mybatis.springboot.version>
         <mysql.version>8.0.26</mysql.version>
         <swagger3.version>2.2.0</swagger3.version>
