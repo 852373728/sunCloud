@@ -1,59 +1,65 @@
 package com.qilin.controller;
 
+import com.qilin.apis.PayFeignApi;
 import com.qilin.entities.PayDTO;
 import com.qilin.util.Result;
 import jakarta.annotation.Resource;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.StringJoiner;
 
 @RestController
-@RequestMapping("/consumer")
+@RequestMapping("/feign")
 public class OrderController {
     @Resource
     private DiscoveryClient discoveryClient;
 
-    public static final String PAYMENT_URL = "http://cloud-provider-payment";
-
     @Resource
-    private RestTemplate restTemplate;
+    private PayFeignApi payFeignApi;
 
     @PostMapping("/pay/add")
-    public Object addOrder(@RequestBody PayDTO payDTO) {
-        return restTemplate.postForObject(PAYMENT_URL + "/pay/add", payDTO, Result.class);
+    public Result<Integer> addOrder(@RequestBody PayDTO payDTO) {
+        return payFeignApi.addPay(payDTO);
     }
 
     @DeleteMapping("/pay/del/{id}")
-    public Object delOrder(@PathVariable("id") Integer id) {
-        return restTemplate.exchange(PAYMENT_URL + "/pay/del/" + id, HttpMethod.DELETE, null, Result.class).getBody();
+    public Result<Integer> delOrder(@PathVariable("id") Integer id) {
+        return payFeignApi.deletePay(id);
     }
 
     @PutMapping("/pay/update")
-    public Object delOrder(@RequestBody PayDTO payDTO) {
-        return restTemplate.exchange(PAYMENT_URL + "/pay/update/", HttpMethod.PUT, new HttpEntity<>(payDTO), Result.class).getBody();
+    public Result<Integer> updateOrder(@RequestBody PayDTO payDTO) {
+        return payFeignApi.updatePay(payDTO);
     }
 
     @GetMapping("/pay/get/{id}")
-    public Object getPayInfo(@PathVariable("id") Integer id) {
-        return restTemplate.getForObject(PAYMENT_URL + "/pay/get/" + id, Result.class, id);
+    public Result<PayDTO> getPayById(@PathVariable("id") Integer id) {
+        Result<PayDTO> pay=null;
+        long l = System.currentTimeMillis();
+        try {
+
+            pay = payFeignApi.getById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            long l1 = System.currentTimeMillis();
+            System.out.println((l1-l)/1000);
+        }
+
+        return pay;
     }
 
     @GetMapping("/pay/getAll")
-    public Object getPayListInfo() {
-        return restTemplate.getForObject(PAYMENT_URL + "/pay/getAll", Result.class);
+    public Result<List<PayDTO>> getAll() {
+        return payFeignApi.getAll();
     }
 
     @GetMapping("/pay/getInfo")
-    public Object getInfo() {
-        return restTemplate.getForObject(PAYMENT_URL + "/pay/getInfo", Result.class);
+    public Result<String> getInfo() {
+        return payFeignApi.getInfo();
     }
-
 
     @GetMapping("/discovery")
     public String discovery() {

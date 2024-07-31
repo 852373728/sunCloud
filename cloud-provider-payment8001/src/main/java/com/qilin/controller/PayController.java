@@ -53,6 +53,7 @@ public class PayController {
     @PutMapping("/update")
     @Operation(summary = "更新", description = "更新支付流水, 参数是JSON字符串, 根据Id更新")
     public Result<Integer> updatePay(@RequestBody PayDTO payDTO) {
+
         try {
             Pay pay = new Pay();
             BeanUtils.copyProperties(payDTO, pay);
@@ -65,6 +66,12 @@ public class PayController {
     @GetMapping("/get/{id}")
     @Operation(summary = "查询单个", description = "查询支付流水, 参数是Id")
     public Result<PayDTO> getById(@PathVariable("id") Integer id) {
+        System.out.println("被调用");
+        try {
+            Thread.sleep(60000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         PayDTO payDTO = new PayDTO();
         BeanUtils.copyProperties(payService.getById(id), payDTO);
         return Result.success(payDTO);
