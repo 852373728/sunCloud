@@ -1,6 +1,10 @@
 server:
   port: 8001
 
+logging:
+  level:
+    com.qilin.apis.*: debug
+
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(value = "cloud-provider-payment")
+@FeignClient(value = "cloud-gateway")
 public interface PayFeignApi {
 
     @PostMapping("/pay/add")
@@ -42,9 +42,9 @@ public interface PayFeignApi {
 
 
     @GetMapping("/pay/gateway/get/{id}")
-    Result<PayDTO> getById4Gateway(@PathVariable("id") Integer id);
+    Result<PayDTO> getByIdGateway(@PathVariable("id") Integer id,@RequestParam(value = "levelname",required = false)String levelname);
 
     @GetMapping("/pay/gateway/getInfo")
-    Result<String> getInfo4Gateway();
+    Result<String> getInfoGateway();
 
 }
