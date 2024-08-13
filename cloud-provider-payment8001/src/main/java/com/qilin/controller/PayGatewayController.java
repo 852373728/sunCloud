@@ -49,4 +49,11 @@ public class PayGatewayController {
         return Result.success(result + "\t ID: " + IdUtil.simpleUUID());
     }
 
+
+    @GetMapping("/userInfo")
+    public Result<String> userInfo(HttpServletRequest request){
+
+        return Result.success("fdfd");
+    }
+
 }

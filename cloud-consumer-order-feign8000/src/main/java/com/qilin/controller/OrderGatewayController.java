@@ -30,4 +30,10 @@ public class OrderGatewayController {
         return Result.fail("系统繁忙, 请稍后重试...");
     }
 
+
+    @GetMapping("/filter")
+    public Result<String> getFilter(){
+        return payFeignApi.getFilter();
+    }
+
 }

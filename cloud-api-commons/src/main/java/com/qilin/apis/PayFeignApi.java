@@ -2,6 +2,7 @@ package com.qilin.apis;
 
 import com.qilin.entities.PayDTO;
 import com.qilin.util.Result;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,5 +47,8 @@ public interface PayFeignApi {
 
     @GetMapping("/pay/gateway/getInfo")
     Result<String> getInfoGateway();
+
+    @GetMapping("/pay/gateway/filter")
+    Result<String> getFilter();
 
 }
