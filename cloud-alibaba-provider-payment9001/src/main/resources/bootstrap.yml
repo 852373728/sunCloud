@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: nacos-pay-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 # nacos地址
+      config:
+        namespace: namespace-prd
+        group: group-prd
+        server-addr: localhost:8848 # nacos地址
+        file-extension: yaml
