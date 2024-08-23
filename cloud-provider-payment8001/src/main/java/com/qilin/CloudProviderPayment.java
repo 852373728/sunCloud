@@ -15,7 +15,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 public class CloudProviderPayment {
     public static void main(String[] args) {
         SpringApplication.run(CloudProviderPayment.class,args);
-
         log.info("=========启动成功=========");
     }
+
 }

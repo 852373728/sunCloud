@@ -1,5 +1,6 @@
 package com.qilin.controller;
 
+import com.qilin.apis.NacosPayFeignApi;
 import com.qilin.entities.PayDTO;
 import com.qilin.util.Result;
 import jakarta.annotation.Resource;
@@ -15,8 +16,8 @@ public class OrderController {
     @Resource
     private RestTemplate restTemplate;
 
-//    @Resource
-//    private PayFeignSentinelApi payFeignSentinelApi;
+    @Resource
+    private NacosPayFeignApi nacosPayFeignApi;
 
     @Value("${service-url.nacos-user-service}")
     private String serverURL;
@@ -26,9 +27,9 @@ public class OrderController {
         return restTemplate.getForObject(serverURL + "/pay/nacos/" + id, String.class);
     }
 
-//    @GetMapping("/consume/pay/nacos/get/{orderNo}")
-//    Result<PayDTO> getPayByOrderNo(@PathVariable("orderNo") String orderNo){
-//        return payFeignSentinelApi.getPayByOrderNo(orderNo);
-//    }
+    @GetMapping("/consume/pay/nacos/get/{orderNo}")
+    Result<PayDTO> getPayByOrderNo(@PathVariable("orderNo") String orderNo){
+        return nacosPayFeignApi.getPayByOrderNo(orderNo);
+    }
 
 }
